@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal — ReWear Moderation & Operations</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main & Responsive Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .admin-nav-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .admin-nav-tab {
+            padding: 0.85rem 1.4rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: var(--transition);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .admin-nav-tab:hover, .admin-nav-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .admin-tab-pane {
+            display: none;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .admin-tab-pane.active {
+            display: block;
+        }
+    </style>
+</head>
+<body style="background-color: #f4f3ed;">
+
+    <!-- Site Header -->
+    <header class="site-header" style="border-bottom: 2px solid #b46c24;">
+        <div class="container header-container">
+            <a href="index.html" class="brand-logo">
+                <i class="fas fa-shield-alt" style="color: #b46c24;"></i> Re<span>Wear</span> <span style="font-size:0.85rem; font-family:var(--font-body); font-weight:700; color:#b46c24; margin-left:0.5rem; text-transform:uppercase; letter-spacing:1px;">Admin Portal</span>
+            </a>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div style="background: rgba(180, 108, 36, 0.12); padding: 0.35rem 0.85rem; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 600; color: #92400e;">
+                    <i class="fas fa-user-shield"></i> Ashima (Admin)
+                </div>
+                <a href="dashboard.html" class="btn btn-outline btn-sm"><i class="fas fa-user"></i> My User Dashboard</a>
+                <a href="index.html" class="btn btn-outline btn-sm"><i class="fas fa-globe"></i> View Public Site</a>
+                <a href="#" onclick="logout(); return false;" class="btn btn-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding: 2.5rem 1.5rem;">
+        <!-- Admin KPI Overview Cards -->
+        <div class="stats-overview-grid" style="margin-bottom: 2.5rem;">
+            <div class="stat-metric-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-data">
+                    <h3 id="stat-total-users">0</h3>
+                    <p>Total Registered Users</p>
+                </div>
+            </div>
+            <div class="stat-metric-card">
+                <div class="stat-icon"><i class="fas fa-tags"></i></div>
+                <div class="stat-data">
+                    <h3 id="stat-total-listings">0</h3>
+                    <p>Total Clothes Listed</p>
+                </div>
+            </div>
+            <div class="stat-metric-card">
+                <div class="stat-icon eco"><i class="fas fa-check-double"></i></div>
+                <div class="stat-data">
+                    <h3 id="stat-active-listings">0</h3>
+                    <p>Active Listings</p>
+                </div>
+            </div>
+            <div class="stat-metric-card">
+                <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+                <div class="stat-data">
+                    <h3 id="stat-total-orders">0</h3>
+                    <p>Total Platform Orders</p>
+                </div>
+            </div>
+            <div class="stat-metric-card">
+                <div class="stat-icon"><i class="fas fa-rupee-sign"></i></div>
+                <div class="stat-data">
+                    <h3 id="stat-gmv">₹0</h3>
+                    <p>Platform GMV Volume</p>
+                </div>
+            </div>
+            <div class="stat-metric-card">
+                <div class="stat-icon exchange"><i class="fas fa-sync-alt"></i></div>
+                <div class="stat-data">
+                    <h3 id="stat-exchanges">0 / 0</h3>
+                    <p>Completed / Swaps</p>
+                </div>
+            </div>
+            <div class="stat-metric-card">
+                <div class="stat-icon donate"><i class="fas fa-hand-holding-heart"></i></div>
+                <div class="stat-data">
+                    <h3 id="stat-donations">0 / 0</h3>
+                    <p>Completed Donations</p>
+                </div>
+            </div>
+            <div class="stat-metric-card" style="border-color: #fca5a5;">
+                <div class="stat-icon" style="background:#fee2e2; color:#b91c1c;"><i class="fas fa-flag"></i></div>
+                <div class="stat-data">
+                    <h3 id="stat-pending-reports" style="color:#b91c1c;">0</h3>
+                    <p>Pending User Reports</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Management Workspace -->
+        <div style="background: #ffffff; border-radius: var(--radius-lg); border: 1px solid var(--border-color); padding: 2.2rem; box-shadow: var(--card-shadow);">
+            <!-- Admin Tabs Navigation -->
+            <div class="admin-nav-bar">
+                <button class="admin-nav-tab active" data-target="pane-overview">
+                    <i class="fas fa-tachometer-alt"></i> Portal Overview
+                </button>
+                <button class="admin-nav-tab" data-target="pane-users">
+                    <i class="fas fa-users-cog"></i> Users Management
+                </button>
+                <button class="admin-nav-tab" data-target="pane-listings">
+                    <i class="fas fa-tshirt"></i> Listings Moderation
+                </button>
+                <button class="admin-nav-tab" data-target="pane-reports">
+                    <i class="fas fa-exclamation-triangle"></i> Incident Reports
+                </button>
+            </div>
+
+            <!-- Tab 1: Overview & Recent Platform Activity -->
+            <div id="pane-overview" class="admin-tab-pane active">
+                <h3 class="font-serif" style="margin-bottom: 1.2rem;">Recent Clothing Additions</h3>
+                <div class="responsive-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Item Title</th>
+                                <th>Seller</th>
+                                <th>Type</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-recent-listings-body">
+                            <tr><td colspan="6" class="text-center text-muted">Loading recent items...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab 2: Users Management -->
+            <div id="pane-users" class="admin-tab-pane">
+                <h3 class="font-serif" style="margin-bottom: 1.2rem;">Registered Member Directory</h3>
+                <div class="responsive-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Member & Email</th>
+                                <th>Location</th>
+                                <th>Activity Stats</th>
+                                <th>Role</th>
+                                <th>Admin Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-users-table-body">
+                            <tr><td colspan="6" class="text-center text-muted">Loading user accounts...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab 3: Listings Moderation -->
+            <div id="pane-listings" class="admin-tab-pane">
+                <h3 class="font-serif" style="margin-bottom: 1.2rem;">All Platform Clothing Listings</h3>
+                <div class="responsive-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Garment Details</th>
+                                <th>Seller</th>
+                                <th>Listing Type</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Moderate</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-listings-table-body">
+                            <tr><td colspan="7" class="text-center text-muted">Loading listings...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab 4: Incident Reports -->
+            <div id="pane-reports" class="admin-tab-pane">
+                <h3 class="font-serif" style="margin-bottom: 1.2rem;">Community Incident Reports</h3>
+                <div class="responsive-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Report #</th>
+                                <th>Target Garment</th>
+                                <th>Flag Reason & Details</th>
+                                <th>Reported By</th>
+                                <th>Status</th>
+                                <th>Moderation Resolution</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-reports-table-body">
+                            <tr><td colspan="6" class="text-center text-muted">Loading reports...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Professional Footer -->
+    <footer class="site-footer" style="margin-top: 4rem;">
+        <div class="container">
+            <div class="footer-bottom">
+                <div>&copy; 2026 ReWear Platform. Administration & Moderation Dashboard.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

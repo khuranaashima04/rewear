@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details — ReWear Marketplace</title>
+    <meta name="description" content="View garment specifications, seller details, and participate in circular fashion.">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main & Responsive Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .product-page-layout {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 3.5rem;
+            padding: 3rem 0;
+            align-items: flex-start;
+        }
+
+        .product-gallery {
+            position: sticky;
+            top: 100px;
+        }
+
+        .main-image-frame {
+            width: 100%;
+            height: 520px;
+            background: #edeae1;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+
+        .main-image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .main-image-frame img:hover {
+            transform: scale(1.03);
+        }
+
+        .thumbnails-row {
+            display: flex;
+            gap: 0.8rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .thumb-img {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .thumb-img:hover, .thumb-img.active {
+            opacity: 1;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .product-info-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .product-price-bar {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            padding: 1.25rem 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .product-price-large {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 0.9rem;
+            margin: 0.5rem 0;
+        }
+
+        .spec-box {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1rem;
+        }
+
+        .spec-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .spec-value {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--primary-dark);
+        }
+
+        .seller-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--card-shadow);
+        }
+
+        .seller-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .seller-avatar {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--secondary-light);
+        }
+
+        .pref-card {
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+            margin-top: 0.5rem;
+        }
+
+        .exchange-pref {
+            background: #fdf6ec;
+            border-left: 4px solid #b46c24;
+        }
+
+        .exchange-pref h4 { color: #b46c24; margin-bottom: 0.3rem; }
+
+        .donation-pref {
+            background: #fef2f2;
+            border-left: 4px solid var(--status-donate);
+        }
+
+        .donation-pref h4 { color: var(--status-donate); margin-bottom: 0.3rem; }
+
+        @media (max-width: 900px) {
+            .product-page-layout {
+                grid-template-columns: 1fr;
+            }
+            .product-gallery {
+                position: static;
+            }
+            .main-image-frame {
+                height: 380px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="brand-logo">
+                <i class="fas fa-leaf"></i> Re<span>Wear</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="explore.html" class="nav-link active">Explore</a>
+                <a href="sell.html" class="nav-link">Sell</a>
+                <a href="exchange.html" class="nav-link">Exchange</a>
+                <a href="donate.html" class="nav-link">Donate</a>
+                <a href="index.html#about" class="nav-link">About</a>
+            </nav>
+
+            <div class="header-actions">
+                <div id="nav-auth-guest" class="auth-guest">
+                    <a href="login.html" class="btn btn-outline btn-sm">Log In</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+                </div>
+
+                <div id="nav-auth-user" class="auth-logged-in">
+                    <a href="dashboard.html?tab=notifications" class="notification-bell-btn" title="Notifications">
+                        <i class="far fa-bell"></i>
+                        <span id="nav-notif-badge" class="notification-badge" style="display:none;">0</span>
+                    </a>
+
+                    <button id="user-menu-btn" class="user-avatar-btn">
+                        <img id="nav-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Avatar">
+                        <span id="nav-user-name">Account</span>
+                        <i class="fas fa-chevron-down" style="font-size:0.75rem; color:#666;"></i>
+                    </button>
+
+                    <div id="user-dropdown" class="user-dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item"><i class="fas fa-th-large"></i> Dashboard</a>
+                        <a href="dashboard.html?tab=listings" class="dropdown-item"><i class="fas fa-tshirt"></i> My Listings</a>
+                        <a href="dashboard.html?tab=orders" class="dropdown-item"><i class="fas fa-box"></i> My Orders</a>
+                        <a href="dashboard.html?tab=wishlist" class="dropdown-item"><i class="far fa-heart"></i> Saved Items</a>
+                        <a href="admin.html" id="nav-admin-link" class="dropdown-item" style="display:none; color:#92400e; font-weight:600;"><i class="fas fa-shield-alt"></i> Admin Portal</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="nav-logout-btn" class="dropdown-item" style="color:#b91c1c;"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                    </div>
+                </div>
+
+                <button id="mobile-nav-toggle" class="mobile-nav-toggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" id="product-details-container">
+        <!-- Breadcrumb -->
+        <div style="padding-top: 1.5rem; font-size: 0.88rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
+            <a href="index.html">Home</a> <span>/</span>
+            <a href="explore.html">Explore</a> <span>/</span>
+            <span id="product-category" style="color: var(--text-color); font-weight: 500;">Fashion</span>
+        </div>
+
+        <!-- Product Page Layout -->
+        <div class="product-page-layout">
+
+            <!-- Gallery -->
+            <div class="product-gallery">
+                <div class="main-image-frame">
+                    <img id="product-main-img" src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=800&q=80" alt="Product Image">
+                </div>
+                <div id="product-thumbnails" class="thumbnails-row"></div>
+            </div>
+
+            <!-- Details & Actions -->
+            <div class="product-info-panel">
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span id="product-brand" style="font-weight: 700; color: var(--secondary-color); text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;">Brand</span>
+                        <span id="product-type-badge" class="badge badge-sell">For Sale</span>
+                    </div>
+                    <h1 id="product-title" style="font-size: 2.2rem; margin-bottom: 0.6rem;">Clothing Title</h1>
+                    <div style="display: flex; align-items: center; gap: 1.2rem; font-size: 0.88rem; color: var(--text-muted);">
+                        <span><i class="fas fa-map-marker-alt"></i> <span id="product-location">Location</span></span>
+                        <span><i class="far fa-eye"></i> <span id="product-views">Views</span></span>
+                    </div>
+                </div>
+
+                <!-- Price Bar -->
+                <div class="product-price-bar">
+                    <div id="product-price" class="product-price-large">₹0</div>
+                </div>
+
+                <!-- Specifications Grid -->
+                <div class="specs-grid">
+                    <div class="spec-box">
+                        <div class="spec-label">Size</div>
+                        <div id="product-size" class="spec-value">-</div>
+                    </div>
+                    <div class="spec-box">
+                        <div class="spec-label">Gender</div>
+                        <div id="product-gender" class="spec-value">-</div>
+                    </div>
+                    <div class="spec-box" style="grid-column: span 2;">
+                        <div class="spec-label">Condition Grade</div>
+                        <div id="product-condition" class="spec-value">-</div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Garment Details & Story</h3>
+                    <p id="product-desc" style="color: #444; line-height: 1.7; font-size: 0.98rem; white-space: pre-line;"></p>
+                </div>
+
+                <!-- Swap / Donation Preferences Container -->
+                <div id="product-preferences-box" style="display: none;"></div>
+
+                <!-- Dynamic Action Buttons -->
+                <div id="product-actions-container" style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;"></div>
+
+                <!-- Seller Profile Card -->
+                <div class="seller-card">
+                    <div class="seller-left">
+                        <img id="seller-avatar" class="seller-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Seller">
+                        <div>
+                            <div style="font-weight: 700; font-size: 1.05rem;" id="seller-name">Seller</div>
+                            <span style="font-size: 0.82rem; color: var(--text-muted);" id="seller-location">Location</span> • 
+                            <span style="font-size: 0.82rem; color: var(--primary-color);" id="seller-listings-count">0 items</span>
+                        </div>
+                    </div>
+                    <a href="#" id="btn-report-listing" style="font-size: 0.82rem; color: #9ca3af;" title="Report this listing"><i class="fas fa-flag"></i> Report</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Items Section -->
+        <section id="related-section" style="margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--border-color);">
+            <h3 class="font-serif" style="font-size: 1.7rem; margin-bottom: 2rem;">You Might Also Love</h3>
+            <div id="related-products-grid" class="products-grid"></div>
+        </section>
+    </main>
+
+    <!-- Buy Now (Checkout) Modal -->
+    <div id="buy-modal" class="modal-overlay">
+        <div class="modal-card">
+            <button class="modal-close" data-close><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <span class="badge badge-sell" style="margin-bottom:0.4rem;">Checkout</span>
+                <h3 class="modal-title font-serif">Simulated Eco-Checkout</h3>
+                <p class="text-muted">Purchasing <strong id="buy-modal-item-title"></strong> for <strong id="buy-modal-item-price" style="color:var(--primary-dark);"></strong></p>
+            </div>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label class="form-label">Delivery Street Address *</label>
+                    <input type="text" id="shipping-address" class="form-input" style="padding-left:1rem;" placeholder="e.g. 14B Indiranagar 100ft Road" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">City *</label>
+                        <input type="text" id="shipping-city" class="form-input" style="padding-left:1rem;" placeholder="e.g. Bengaluru" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">PIN Code *</label>
+                        <input type="text" id="shipping-zip" class="form-input" style="padding-left:1rem;" placeholder="e.g. 560038" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Payment Method (Simulated)</label>
+                    <select id="payment-method" class="form-select" style="padding-left:1rem;">
+                        <option value="Simulated UPI / Eco-Pay">Simulated UPI / Net Banking (Eco-Pay)</option>
+                        <option value="Cash on Local Meetup">Cash on Local Meetup</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Complete Purchase</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Exchange Proposal Modal -->
+    <div id="exchange-modal" class="modal-overlay">
+        <div class="modal-card">
+            <button class="modal-close" data-close><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <span class="badge badge-exchange" style="margin-bottom:0.4rem;">Propose Swap</span>
+                <h3 class="modal-title font-serif">Propose Clothing Exchange</h3>
+                <p class="text-muted">Offer an item from your wardrobe in return for <strong id="exchange-modal-target-title"></strong>.</p>
+            </div>
+            <form id="exchange-form">
+                <div class="form-group">
+                    <label class="form-label">Choose One of Your Active Listed Clothes *</label>
+                    <select id="exchange-offered-item-select" class="form-select" style="padding-left:1rem;" required>
+                        <option value="">Loading your listings...</option>
+                    </select>
+                    <div id="exchange-no-items-warning" style="display:none; font-size:0.85rem; color:#b91c1c; margin-top:0.4rem;">
+                        <i class="fas fa-exclamation-triangle"></i> You don't have active clothes listed. <a href="sell.html" style="text-decoration:underline; font-weight:600;">List an item first</a> to swap.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Message to Owner (Optional)</label>
+                    <textarea id="exchange-note" class="form-textarea" placeholder="Introduce yourself or mention why this swap is a great match..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; background:#b46c24; border-color:#b46c24;">Send Swap Proposal</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Request Donation Modal -->
+    <div id="donation-modal" class="modal-overlay">
+        <div class="modal-card">
+            <button class="modal-close" data-close><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <span class="badge badge-donate" style="margin-bottom:0.4rem;">Request Donation</span>
+                <h3 class="modal-title font-serif">Request Donated Clothing</h3>
+                <p class="text-muted">Requesting <strong id="donation-modal-title"></strong></p>
+            </div>
+            <form id="donation-form">
+                <div class="form-group">
+                    <label class="form-label">Purpose / Context *</label>
+                    <textarea id="donation-purpose-message" class="form-textarea" placeholder="Please share a brief note on who will receive or wear this garment (e.g. for myself, shelter donation, student clothing drive)..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Delivery Preference</label>
+                    <select id="donation-delivery-mode" class="form-select" style="padding-left:1rem;">
+                        <option value="pickup">Local Meetup / Community Pickup</option>
+                        <option value="standard_shipping">Standard Shipping</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; background:var(--status-donate); border-color:var(--status-donate);">Submit Donation Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Report Listing Modal -->
+    <div id="report-modal" class="modal-overlay">
+        <div class="modal-card">
+            <button class="modal-close" data-close><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <h3 class="modal-title font-serif">Report Listing</h3>
+                <p class="text-muted">Help us keep ReWear safe, authentic, and respectful.</p>
+            </div>
+            <form id="report-form">
+                <div class="form-group">
+                    <label class="form-label">Reason *</label>
+                    <select id="report-reason" class="form-select" style="padding-left:1rem;" required>
+                        <option value="Inappropriate Content">Inappropriate Content</option>
+                        <option value="Misleading Description / Condition">Misleading Description / Condition</option>
+                        <option value="Counterfeit Garment">Counterfeit Garment</option>
+                        <option value="Prohibited Item">Prohibited Item</option>
+                        <option value="Other Policy Violation">Other Policy Violation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Additional Details</label>
+                    <textarea id="report-details" class="form-textarea" placeholder="Explain what issue you noticed with this listing..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-danger" style="width: 100%;">Submit Report</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Professional Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="brand-logo" style="color: #ffffff;">
+                        <i class="fas fa-leaf" style="color: var(--secondary-color);"></i> Re<span>Wear</span>
+                    </a>
+                    <p>Give your clothes a second life. A sustainable circular marketplace.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Marketplace</h4>
+                    <ul class="footer-links">
+                        <li><a href="explore.html">Explore All</a></li>
+                        <li><a href="exchange.html">Clothing Swaps</a></li>
+                        <li><a href="donate.html">Donations Hub</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Actions</h4>
+                    <ul class="footer-links">
+                        <li><a href="sell.html">Sell An Item</a></li>
+                        <li><a href="dashboard.html">My Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Safety</h4>
+                    <ul class="footer-links">
+                        <li><a href="admin.html">Moderation</a></li>
+                        <li><a href="#">Terms & Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2026 ReWear Platform. Circular Fashion.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/product.js"></script>
+</body>
+</html>

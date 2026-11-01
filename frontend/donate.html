@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Donations & Social Impact — ReWear</title>
+    <meta name="description" content="Browse donated clothing, request garments freely for yourself or charitable causes, and track textile waste prevention.">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main & Responsive Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="brand-logo">
+                <i class="fas fa-leaf"></i> Re<span>Wear</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="sell.html" class="nav-link">Sell</a>
+                <a href="exchange.html" class="nav-link">Exchange</a>
+                <a href="donate.html" class="nav-link active">Donate</a>
+                <a href="index.html#about" class="nav-link">About</a>
+            </nav>
+
+            <div class="header-actions">
+                <div id="nav-auth-guest" class="auth-guest">
+                    <a href="login.html" class="btn btn-outline btn-sm">Log In</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+                </div>
+
+                <div id="nav-auth-user" class="auth-logged-in">
+                    <a href="dashboard.html?tab=notifications" class="notification-bell-btn" title="Notifications">
+                        <i class="far fa-bell"></i>
+                        <span id="nav-notif-badge" class="notification-badge" style="display:none;">0</span>
+                    </a>
+
+                    <button id="user-menu-btn" class="user-avatar-btn">
+                        <img id="nav-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Avatar">
+                        <span id="nav-user-name">Account</span>
+                        <i class="fas fa-chevron-down" style="font-size:0.75rem; color:#666;"></i>
+                    </button>
+
+                    <div id="user-dropdown" class="user-dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item"><i class="fas fa-th-large"></i> Dashboard</a>
+                        <a href="dashboard.html?tab=listings" class="dropdown-item"><i class="fas fa-tshirt"></i> My Listings</a>
+                        <a href="dashboard.html?tab=orders" class="dropdown-item"><i class="fas fa-box"></i> My Orders</a>
+                        <a href="dashboard.html?tab=wishlist" class="dropdown-item"><i class="far fa-heart"></i> Saved Items</a>
+                        <a href="admin.html" id="nav-admin-link" class="dropdown-item" style="display:none; color:#92400e; font-weight:600;"><i class="fas fa-shield-alt"></i> Admin Portal</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="nav-logout-btn" class="dropdown-item" style="color:#b91c1c;"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                    </div>
+                </div>
+
+                <button id="mobile-nav-toggle" class="mobile-nav-toggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding: 3rem 1.5rem;">
+        <!-- Donation Hero Banner -->
+        <div style="background: linear-gradient(135deg, rgba(23, 51, 39, 0.95) 0%, rgba(179, 57, 57, 0.9) 100%), url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb9?auto=format&fit=crop&w=1200&q=80') center/cover; border-radius: var(--radius-lg); color: #ffffff; padding: 4rem 3rem; margin-bottom: 3.5rem;">
+            <div style="max-width: 680px;">
+                <span class="badge" style="background: rgba(255, 255, 255, 0.2); color: #ffffff; margin-bottom: 1rem;"><i class="fas fa-hand-holding-heart"></i> Social Impact & Circularity</span>
+                <h1 style="color: #ffffff; font-size: 3rem; margin-bottom: 1rem; line-height: 1.15;">Give Warmth, Cut Waste.</h1>
+                <p style="color: #f1ede4; font-size: 1.15rem; line-height: 1.6; margin-bottom: 2rem;">
+                    Donating pre-owned clothing provides dignified, warm attire to families, single parents, students, and shelters while diverting valuable materials from local landfills.
+                </p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href="sell.html" class="btn btn-primary" style="background: #ffffff; color: var(--primary-dark);">
+                        <i class="fas fa-gift"></i> Donate a Garment
+                    </a>
+                    <a href="#browse-donations" class="btn btn-outline" style="border-color: #ffffff; color: #ffffff;">
+                        Browse Free Clothes
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Impact Metrics -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.5rem; margin-bottom: 4rem;">
+            <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.75rem; text-align: center; box-shadow: var(--card-shadow);">
+                <div style="font-size: 2.2rem; font-weight: 700; color: var(--status-donate); font-family: var(--font-heading);" id="metric-donations-count">0</div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">Completed Donations</p>
+            </div>
+            <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.75rem; text-align: center; box-shadow: var(--card-shadow);">
+                <div style="font-size: 2.2rem; font-weight: 700; color: var(--primary-dark); font-family: var(--font-heading);" id="metric-reused-count">0</div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">Total Garments Reused</p>
+            </div>
+            <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.75rem; text-align: center; box-shadow: var(--card-shadow);">
+                <div style="font-size: 2.2rem; font-weight: 700; color: #2e7d32; font-family: var(--font-heading);" id="metric-weight-diverted">0 kg</div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">Clothing Landfill Diverted</p>
+            </div>
+            <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.75rem; text-align: center; box-shadow: var(--card-shadow);">
+                <div style="font-size: 2.2rem; font-weight: 700; color: #0288d1; font-family: var(--font-heading);" id="metric-water-saved">0 L</div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">Water Conserved</p>
+            </div>
+        </div>
+
+        <!-- Environmental & Social Impact Section -->
+        <section style="background: var(--surface-color); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 3rem; margin-bottom: 4.5rem; box-shadow: var(--card-shadow);">
+            <div style="max-width: 720px; margin: 0 auto; text-align: center; margin-bottom: 3rem;">
+                <span class="section-subtitle">Environmental Transparency</span>
+                <h2 class="section-title">Why Clothing Donation Matters</h2>
+                <p class="section-desc">Extending a garment's life by just 9 months reduces its carbon, water, and waste footprints by around 20–30%.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                <div style="padding: 1.5rem; background: var(--bg-color); border-radius: var(--radius-md);">
+                    <div style="font-size: 1.8rem; color: #2e7d32; margin-bottom: 0.8rem;"><i class="fas fa-tint-slash"></i></div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Massive Water Conservation</h3>
+                    <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6;">
+                        Producing a single cotton t-shirt requires approximately 2,700 liters of fresh water. Reusing existing textiles preserves vital freshwater resources.
+                    </p>
+                </div>
+
+                <div style="padding: 1.5rem; background: var(--bg-color); border-radius: var(--radius-md);">
+                    <div style="font-size: 1.8rem; color: #b46c24; margin-bottom: 0.8rem;"><i class="fas fa-smog"></i></div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Curbing Microplastics & Carbon</h3>
+                    <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6;">
+                        Synthetic garments (polyester, nylon) take up to 200 years to decompose in landfills. Keeping them circulating prevents soil leaching and methane emissions.
+                    </p>
+                </div>
+
+                <div style="padding: 1.5rem; background: var(--bg-color); border-radius: var(--radius-md);">
+                    <div style="font-size: 1.8rem; color: var(--status-donate); margin-bottom: 0.8rem;"><i class="fas fa-hands-helping"></i></div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Dignified Direct Support</h3>
+                    <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6;">
+                        Rather than shipping discarded clothes overseas to end up in foreign deserts, ReWear connects items directly with individuals, charities, and shelters.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Browse Donated Clothes Section -->
+        <section id="browse-donations" style="margin-bottom: 4rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <span class="section-subtitle">Zero Cost Clothing</span>
+                    <h2 class="section-title" style="margin-bottom: 0;">Browse Donated Garments</h2>
+                </div>
+                <!-- Filters bar -->
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <input type="text" id="donate-search" placeholder="Search..." class="form-input" style="padding: 0.45rem 0.8rem; font-size: 0.88rem; width: 170px;">
+                    <select id="donate-category" class="form-select" style="padding: 0.45rem 0.8rem; font-size: 0.88rem; width: auto;">
+                        <option value="all">All Categories</option>
+                        <option value="men">Men</option>
+                        <option value="women">Women</option>
+                        <option value="kids">Kids</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="winter-wear">Winter Wear</option>
+                    </select>
+                    <select id="donate-size" class="form-select" style="padding: 0.45rem 0.8rem; font-size: 0.88rem; width: auto;">
+                        <option value="all">All Sizes</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="Free Size">Free Size</option>
+                    </select>
+                    <input type="text" id="donate-location" placeholder="City (e.g. Delhi, Jaipur)..." class="form-input" style="padding: 0.45rem 0.8rem; font-size: 0.88rem; width: 180px;">
+                </div>
+            </div>
+
+            <div id="donations-grid" class="products-grid">
+                <div class="loading-spinner" style="grid-column: 1 / -1;"><div class="spinner"></div></div>
+            </div>
+        </section>
+
+        <!-- User's Active Donation Requests -->
+        <section id="my-donation-requests-section" style="background: #ffffff; border-radius: var(--radius-lg); border: 1px solid var(--border-color); padding: 2.5rem; box-shadow: var(--card-shadow);">
+            <h3 class="font-serif" style="font-size: 1.5rem; margin-bottom: 1.5rem;">Your Donation Activity & Requests</h3>
+            <div id="my-donation-requests-list" class="requests-list">
+                <div class="loading-spinner"><div class="spinner"></div></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal to Request a Donated Garment -->
+    <div id="donation-request-modal" class="modal-overlay">
+        <div class="modal-card">
+            <button class="modal-close" data-close><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <span class="badge badge-donate" style="margin-bottom:0.4rem;">Free Donation</span>
+                <h3 class="modal-title font-serif">Request Donated Item</h3>
+                <p class="text-muted">Item: <strong id="modal-donation-title"></strong></p>
+            </div>
+            <form id="donation-request-form">
+                <div class="form-group">
+                    <label class="form-label">Purpose / Context *</label>
+                    <textarea id="donation-req-purpose" class="form-textarea" placeholder="Please share a brief note about why you are requesting this item (e.g. for my family, community clothing drive, student essentials)..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Delivery Mode</label>
+                    <select id="donation-req-mode" class="form-select" style="padding-left:1rem;">
+                        <option value="pickup">Local Meetup / Community Pickup</option>
+                        <option value="standard_shipping">Standard Shipping</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; background: var(--status-donate); border-color: var(--status-donate);">
+                    Submit Donation Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Professional Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="brand-logo" style="color: #ffffff;">
+                        <i class="fas fa-leaf" style="color: var(--secondary-color);"></i> Re<span>Wear</span>
+                    </a>
+                    <p>Give your clothes a second life. A sustainable circular marketplace for mindful wardrobes.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Marketplace</h4>
+                    <ul class="footer-links">
+                        <li><a href="explore.html">Browse All</a></li>
+                        <li><a href="exchange.html">Clothing Swaps</a></li>
+                        <li><a href="donate.html">Donations Hub</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Actions</h4>
+                    <ul class="footer-links">
+                        <li><a href="sell.html">Donate Clothes</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Circularity</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="#">Textile Metrics</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2026 ReWear Platform. Circular Fashion.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/donate.js"></script>
+</body>
+</html>

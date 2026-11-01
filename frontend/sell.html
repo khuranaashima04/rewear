@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List an Item — ReWear Sustainable Fashion</title>
+    <meta name="description" content="List your pre-loved clothing for sale, exchange, or donation to keep textiles circulating.">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main & Responsive Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .sell-container {
+            max-width: 860px;
+            margin: 3rem auto;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 2.8rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .listing-mode-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .mode-option-card {
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .mode-option-card:hover {
+            border-color: var(--secondary-color);
+            background: var(--bg-color);
+        }
+
+        .mode-option-card input[type="radio"] {
+            display: none;
+        }
+
+        .mode-option-card.active {
+            border-color: var(--primary-color);
+            background: rgba(35, 75, 58, 0.05);
+        }
+
+        .mode-icon {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .mode-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--primary-dark);
+        }
+
+        .mode-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Image Drag & Drop Area */
+        .image-dropzone {
+            border: 2px dashed #b5c2b0;
+            border-radius: var(--radius-md);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            background: #faf9f6;
+            transition: var(--transition);
+        }
+
+        .image-dropzone:hover, .image-dropzone.dragover {
+            border-color: var(--primary-color);
+            background: #f0f4ee;
+        }
+
+        .dropzone-icon {
+            font-size: 2.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .image-previews-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.25rem;
+        }
+
+        .upload-preview-card {
+            width: 95px;
+            height: 95px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        .upload-preview-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .btn-remove-preview {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.65);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .primary-indicator {
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            background: var(--primary-color);
+            color: #ffffff;
+            font-size: 0.65rem;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="brand-logo">
+                <i class="fas fa-leaf"></i> Re<span>Wear</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="sell.html" class="nav-link active">Sell</a>
+                <a href="exchange.html" class="nav-link">Exchange</a>
+                <a href="donate.html" class="nav-link">Donate</a>
+                <a href="index.html#about" class="nav-link">About</a>
+            </nav>
+
+            <div class="header-actions">
+                <div id="nav-auth-guest" class="auth-guest">
+                    <a href="login.html" class="btn btn-outline btn-sm">Log In</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+                </div>
+
+                <div id="nav-auth-user" class="auth-logged-in">
+                    <a href="dashboard.html?tab=notifications" class="notification-bell-btn" title="Notifications">
+                        <i class="far fa-bell"></i>
+                        <span id="nav-notif-badge" class="notification-badge" style="display:none;">0</span>
+                    </a>
+
+                    <button id="user-menu-btn" class="user-avatar-btn">
+                        <img id="nav-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Avatar">
+                        <span id="nav-user-name">Account</span>
+                        <i class="fas fa-chevron-down" style="font-size:0.75rem; color:#666;"></i>
+                    </button>
+
+                    <div id="user-dropdown" class="user-dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item"><i class="fas fa-th-large"></i> Dashboard</a>
+                        <a href="dashboard.html?tab=listings" class="dropdown-item"><i class="fas fa-tshirt"></i> My Listings</a>
+                        <a href="dashboard.html?tab=orders" class="dropdown-item"><i class="fas fa-box"></i> My Orders</a>
+                        <a href="dashboard.html?tab=wishlist" class="dropdown-item"><i class="far fa-heart"></i> Saved Items</a>
+                        <a href="admin.html" id="nav-admin-link" class="dropdown-item" style="display:none; color:#92400e; font-weight:600;"><i class="fas fa-shield-alt"></i> Admin Portal</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="nav-logout-btn" class="dropdown-item" style="color:#b91c1c;"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                    </div>
+                </div>
+
+                <button id="mobile-nav-toggle" class="mobile-nav-toggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="sell-container">
+            <div style="margin-bottom: 2rem; text-align: center;">
+                <span class="section-subtitle">Wardrobe Circularity</span>
+                <h1 id="sell-page-title" class="font-serif" style="font-size: 2.2rem; margin-bottom: 0.5rem;">List a Pre-Loved Garment</h1>
+                <p id="sell-page-desc" class="text-muted">Turn unused clothing into funds, new wardrobe pieces, or community support.</p>
+            </div>
+
+            <form id="sell-item-form">
+                <!-- 1. Listing Mode Radio Selector -->
+                <div style="margin-bottom: 1.75rem;">
+                    <label class="form-label" style="font-size: 1rem; margin-bottom: 0.8rem;">How would you like to list this garment? *</label>
+                    <div class="listing-mode-selector">
+                        <label class="mode-option-card active" id="card-mode-sell">
+                            <input type="radio" name="listing_type" value="sell" checked>
+                            <i class="fas fa-shopping-bag mode-icon"></i>
+                            <div class="mode-title">Sell</div>
+                            <span class="mode-desc">Earn cash from pre-loved clothes</span>
+                        </label>
+                        <label class="mode-option-card" id="card-mode-exchange">
+                            <input type="radio" name="listing_type" value="exchange">
+                            <i class="fas fa-sync-alt mode-icon" style="color: #b46c24;"></i>
+                            <div class="mode-title">Exchange</div>
+                            <span class="mode-desc">Swap wardrobe pieces for free</span>
+                        </label>
+                        <label class="mode-option-card" id="card-mode-donate">
+                            <input type="radio" name="listing_type" value="donate">
+                            <i class="fas fa-heart mode-icon" style="color: var(--status-donate);"></i>
+                            <div class="mode-title">Donate</div>
+                            <span class="mode-desc">Gift free to community causes</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 2. Clothing Images Upload -->
+                <div class="form-group">
+                    <label class="form-label">Garment Photography (Up to 5 photos) *</label>
+                    <div id="image-dropzone" class="image-dropzone">
+                        <input type="file" id="item-images-input" multiple accept="image/jpeg,image/png,image/webp" style="display: none;">
+                        <div class="dropzone-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <h4 style="margin-bottom: 0.3rem;">Drag & drop clothing photos here, or click to browse</h4>
+                        <p class="text-muted" style="font-size: 0.85rem;">JPEG, PNG, or WebP up to 5MB each. First uploaded photo will be your listing cover.</p>
+                    </div>
+                    <div id="image-previews-container" class="image-previews-container"></div>
+
+                    <!-- Direct URL Fallback -->
+                    <div style="margin-top: 1rem;">
+                        <span style="font-size: 0.82rem; color: var(--text-muted);">Or enter an image web URL:</span>
+                        <input type="url" id="item-image-url" class="form-input" style="padding-left:1rem; margin-top:0.3rem;" placeholder="https://images.unsplash.com/...">
+                    </div>
+                </div>
+
+                <!-- 3. Title & Description -->
+                <div class="form-group">
+                    <label class="form-label">Item Title *</label>
+                    <input type="text" id="item-title" class="form-input" style="padding-left:1rem;" placeholder="e.g. Handloom Chanderi Saree, Khadi Kurta, Indigo Jacket" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description & Garment Story *</label>
+                    <textarea id="item-desc" class="form-textarea" placeholder="Describe the fit, weave, fabric composition, color tones, styling suggestions, and how it was cared for..." required></textarea>
+                </div>
+
+                <!-- 4. Category, Gender & Size -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Category *</label>
+                        <select id="item-category" class="form-select" style="padding-left:1rem;" required>
+                            <option value="">Loading categories...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Gender / Fit *</label>
+                        <select id="item-gender" class="form-select" style="padding-left:1rem;" required>
+                            <option value="women">Women</option>
+                            <option value="men">Men</option>
+                            <option value="kids">Kids</option>
+                            <option value="unisex">Unisex</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Size *</label>
+                        <select id="item-size" class="form-select" style="padding-left:1rem;" required>
+                            <option value="XS">XS</option>
+                            <option value="S">S</option>
+                            <option value="M" selected>M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
+                            <option value="Free Size">Free Size</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Brand / Maker / Handloom Guild</label>
+                        <input type="text" id="item-brand" class="form-input" style="padding-left:1rem;" placeholder="e.g. Fabindia, Anokhi, Khadi India, Nicobar, Handloom">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Condition Grade *</label>
+                        <select id="item-condition" class="form-select" style="padding-left:1rem;" required>
+                            <option value="brand_new">Brand New (With tags or unworn)</option>
+                            <option value="like_new" selected>Like New (Worn 1-2 times, flawless)</option>
+                            <option value="gently_used">Gently Used (Minor typical wear, great life left)</option>
+                            <option value="well_worn">Pre-Loved Vintage (Distressed aesthetic or minor flaws)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Your Location (City, State) *</label>
+                        <input type="text" id="item-location" class="form-input" style="padding-left:1rem;" placeholder="e.g. Mumbai, New Delhi, Bengaluru, Jaipur..." required>
+                    </div>
+                </div>
+
+                <!-- 5. Conditional Fields: Price, Exchange Pref, Donation Pref -->
+                <div id="group-price" class="form-group">
+                    <label class="form-label">Selling Price (₹ INR) *</label>
+                    <input type="number" id="item-price" class="form-input" style="padding-left:1rem;" step="10" min="1" placeholder="e.g. 1450">
+                </div>
+
+                <div id="group-exchange-pref" class="form-group" style="display: none;">
+                    <label class="form-label">What would you love to swap for? (Exchange Wishlist)</label>
+                    <textarea id="item-exchange-pref" class="form-textarea" placeholder="e.g. Looking for handspun Nehru jackets in size L, pure silk dupattas, or block-printed kurtas..."></textarea>
+                </div>
+
+                <div id="group-donation-pref" class="form-group" style="display: none;">
+                    <label class="form-label">Donation Notes & Preferences</label>
+                    <textarea id="item-donation-pref" class="form-textarea" placeholder="e.g. Free to single parents, shelters, students, or anyone in need of winter outerwear..."></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 1.5rem;">
+                    Publish Listing <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Professional Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="brand-logo" style="color: #ffffff;">
+                        <i class="fas fa-leaf" style="color: var(--secondary-color);"></i> Re<span>Wear</span>
+                    </a>
+                    <p>Give your clothes a second life. A sustainable circular clothing marketplace.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Marketplace</h4>
+                    <ul class="footer-links">
+                        <li><a href="explore.html">Explore All</a></li>
+                        <li><a href="exchange.html">Clothing Swaps</a></li>
+                        <li><a href="donate.html">Donations Hub</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Actions</h4>
+                    <ul class="footer-links">
+                        <li><a href="sell.html">Sell Clothes</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Assistance</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Guidelines</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2026 ReWear Platform. Circular Fashion.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/sell.js"></script>
+    <script>
+        // Mode cards visual toggle
+        document.querySelectorAll('.mode-option-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.mode-option-card').forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

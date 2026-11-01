@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard — ReWear Circular Fashion</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main & Responsive Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="brand-logo">
+                <i class="fas fa-leaf"></i> Re<span>Wear</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="sell.html" class="nav-link">Sell</a>
+                <a href="exchange.html" class="nav-link">Exchange</a>
+                <a href="donate.html" class="nav-link">Donate</a>
+                <a href="index.html#about" class="nav-link">About</a>
+            </nav>
+
+            <div class="header-actions">
+                <div id="nav-auth-user" class="auth-logged-in" style="display:flex;">
+                    <a href="dashboard.html?tab=notifications" class="notification-bell-btn" title="Notifications">
+                        <i class="far fa-bell"></i>
+                        <span id="nav-notif-badge" class="notification-badge" style="display:none;">0</span>
+                    </a>
+
+                    <button id="user-menu-btn" class="user-avatar-btn">
+                        <img id="nav-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Avatar">
+                        <span id="nav-user-name">Account</span>
+                        <i class="fas fa-chevron-down" style="font-size:0.75rem; color:#666;"></i>
+                    </button>
+
+                    <div id="user-dropdown" class="user-dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item"><i class="fas fa-th-large"></i> Dashboard</a>
+                        <a href="dashboard.html?tab=listings" class="dropdown-item"><i class="fas fa-tshirt"></i> My Listings</a>
+                        <a href="dashboard.html?tab=orders" class="dropdown-item"><i class="fas fa-box"></i> My Orders</a>
+                        <a href="dashboard.html?tab=wishlist" class="dropdown-item"><i class="far fa-heart"></i> Saved Items</a>
+                        <a href="admin.html" id="nav-admin-link" class="dropdown-item" style="display:none; color:#92400e; font-weight:600;"><i class="fas fa-shield-alt"></i> Admin Portal</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="nav-logout-btn" class="dropdown-item" style="color:#b91c1c;"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                    </div>
+                </div>
+
+                <button id="mobile-nav-toggle" class="mobile-nav-toggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container dashboard-wrapper">
+        <div class="dashboard-layout">
+
+            <!-- Sidebar Navigation -->
+            <aside class="dashboard-sidebar">
+                <div class="user-sidebar-profile">
+                    <img id="dash-sidebar-avatar" class="user-sidebar-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="User">
+                    <h3 id="dash-sidebar-name" class="user-sidebar-name">User Name</h3>
+                    <div id="dash-sidebar-email" class="user-sidebar-email">user@example.com</div>
+                    <span id="dash-sidebar-role" class="user-role-badge">Eco Member</span>
+                </div>
+
+                <nav class="dashboard-nav">
+                    <a href="#" class="dash-nav-item active" data-tab="overview">
+                        <div class="dash-nav-item-left"><i class="fas fa-chart-pie"></i> <span>Overview</span></div>
+                    </a>
+                    <a href="#" class="dash-nav-item" data-tab="listings">
+                        <div class="dash-nav-item-left"><i class="fas fa-tshirt"></i> <span>My Wardrobe</span></div>
+                    </a>
+                    <a href="#" class="dash-nav-item" data-tab="orders">
+                        <div class="dash-nav-item-left"><i class="fas fa-box"></i> <span>Orders & Sales</span></div>
+                    </a>
+                    <a href="#" class="dash-nav-item" data-tab="exchanges">
+                        <div class="dash-nav-item-left"><i class="fas fa-sync-alt"></i> <span>Clothing Swaps</span></div>
+                    </a>
+                    <a href="#" class="dash-nav-item" data-tab="donations">
+                        <div class="dash-nav-item-left"><i class="fas fa-hand-holding-heart"></i> <span>Donations</span></div>
+                    </a>
+                    <a href="#" class="dash-nav-item" data-tab="wishlist">
+                        <div class="dash-nav-item-left"><i class="far fa-heart"></i> <span>Saved Wishlist</span></div>
+                    </a>
+                    <a href="#" class="dash-nav-item" data-tab="notifications">
+                        <div class="dash-nav-item-left"><i class="far fa-bell"></i> <span>Notifications</span></div>
+                    </a>
+                    <a href="#" class="dash-nav-item" data-tab="settings">
+                        <div class="dash-nav-item-left"><i class="fas fa-cog"></i> <span>Account Settings</span></div>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <section class="dashboard-content">
+
+                <!-- 1. Overview Tab -->
+                <div id="tab-overview" class="tab-pane active">
+                    <div class="content-header">
+                        <div>
+                            <h2 class="content-title font-serif">Welcome back, <span id="welcome-user-name">Friend</span>! 🌿</h2>
+                            <p class="text-muted">Here is an overview of your circular wardrobe contributions and activities.</p>
+                        </div>
+                        <a href="sell.html" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> List an Item</a>
+                    </div>
+
+                    <!-- Metric Stats Cards -->
+                    <div class="stats-overview-grid">
+                        <div class="stat-metric-card">
+                            <div class="stat-icon"><i class="fas fa-tshirt"></i></div>
+                            <div class="stat-data">
+                                <h3 id="dash-stat-total-listings">0</h3>
+                                <p>Total Listings</p>
+                            </div>
+                        </div>
+                        <div class="stat-metric-card">
+                            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="stat-data">
+                                <h3 id="dash-stat-active-listings">0</h3>
+                                <p>Active in Circulation</p>
+                            </div>
+                        </div>
+                        <div class="stat-metric-card">
+                            <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
+                            <div class="stat-data">
+                                <h3 id="dash-stat-sold">0</h3>
+                                <p>Garments Sold</p>
+                            </div>
+                        </div>
+                        <div class="stat-metric-card">
+                            <div class="stat-icon exchange"><i class="fas fa-sync-alt"></i></div>
+                            <div class="stat-data">
+                                <h3 id="dash-stat-exchanges">0</h3>
+                                <p>Swaps Completed</p>
+                            </div>
+                        </div>
+                        <div class="stat-metric-card">
+                            <div class="stat-icon donate"><i class="fas fa-heart"></i></div>
+                            <div class="stat-data">
+                                <h3 id="dash-stat-donations">0</h3>
+                                <p>Donations Given</p>
+                            </div>
+                        </div>
+                        <div class="stat-metric-card">
+                            <div class="stat-icon eco"><i class="fas fa-leaf"></i></div>
+                            <div class="stat-data">
+                                <h3 id="dash-stat-impact">0 kg</h3>
+                                <p>Textiles Diverted</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Action Shortcuts -->
+                    <div style="background: var(--bg-color); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.75rem; margin-top: 2rem;">
+                        <h4 style="margin-bottom: 0.8rem;">Quick Shortcuts</h4>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <a href="sell.html" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> List Clothing</a>
+                            <a href="explore.html" class="btn btn-outline btn-sm"><i class="fas fa-compass"></i> Discover Pieces</a>
+                            <a href="exchange.html" class="btn btn-outline btn-sm"><i class="fas fa-sync-alt"></i> Browse Swaps</a>
+                            <a href="donate.html" class="btn btn-outline btn-sm"><i class="fas fa-hand-holding-heart"></i> Free Donations</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. My Listings Tab -->
+                <div id="tab-listings" class="tab-pane">
+                    <div class="content-header">
+                        <div>
+                            <h2 class="content-title font-serif">My Listed Clothes</h2>
+                            <p class="text-muted">Manage your active wardrobe pieces, edit details, or remove sold items.</p>
+                        </div>
+                        <a href="sell.html" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add New Piece</a>
+                    </div>
+                    <div id="my-listings-container"></div>
+                </div>
+
+                <!-- 3. Orders & Sales Tab -->
+                <div id="tab-orders" class="tab-pane">
+                    <div class="content-header">
+                        <div>
+                            <h2 class="content-title font-serif">Orders & Purchases</h2>
+                            <p class="text-muted">Track items you bought and manage incoming customer orders for your garments.</p>
+                        </div>
+                    </div>
+
+                    <h3 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--primary-dark);">Your Purchases</h3>
+                    <div class="responsive-table-wrapper" style="margin-bottom: 3rem;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Garment</th>
+                                    <th>Total</th>
+                                    <th>Seller</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="my-purchases-table-body">
+                                <tr><td colspan="6" class="text-center text-muted">Loading purchases...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--primary-dark);">Sales from Your Wardrobe</h3>
+                    <div class="responsive-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Garment</th>
+                                    <th>Amount</th>
+                                    <th>Buyer & Destination</th>
+                                    <th>Current Status</th>
+                                    <th>Update Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="my-sales-table-body">
+                                <tr><td colspan="6" class="text-center text-muted">Loading sales...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 4. Exchanges Tab -->
+                <div id="tab-exchanges" class="tab-pane">
+                    <div class="content-header">
+                        <div>
+                            <h2 class="content-title font-serif">Clothing Exchange Proposals</h2>
+                            <p class="text-muted">Direct barter proposals between you and fellow conscious stylists.</p>
+                        </div>
+                        <a href="exchange.html" class="btn btn-outline btn-sm">Explore All Swaps</a>
+                    </div>
+                    <div id="dash-exchanges-container"></div>
+                </div>
+
+                <!-- 5. Donations Tab -->
+                <div id="tab-donations" class="tab-pane">
+                    <div class="content-header">
+                        <div>
+                            <h2 class="content-title font-serif">Donation Requests</h2>
+                            <p class="text-muted">Track your charitable gifts and responses to free clothing requests.</p>
+                        </div>
+                        <a href="donate.html" class="btn btn-outline btn-sm">Donations Hub</a>
+                    </div>
+                    <div id="dash-donations-container"></div>
+                </div>
+
+                <!-- 6. Wishlist Tab -->
+                <div id="tab-wishlist" class="tab-pane">
+                    <div class="content-header">
+                        <div>
+                            <h2 class="content-title font-serif">Saved Wardrobe Wishlist</h2>
+                            <p class="text-muted">Pre-loved garments you have favorited for future purchases or swaps.</p>
+                        </div>
+                        <a href="explore.html" class="btn btn-outline btn-sm">Browse More</a>
+                    </div>
+                    <div id="dash-wishlist-container"></div>
+                </div>
+
+                <!-- 7. Notifications Tab -->
+                <div id="tab-notifications" class="tab-pane">
+                    <div class="content-header">
+                        <div>
+                            <h2 class="content-title font-serif">Notifications Center</h2>
+                            <p class="text-muted">Updates regarding purchases, swap proposals, and community interactions.</p>
+                        </div>
+                    </div>
+                    <div id="dash-notifications-container"></div>
+                </div>
+
+                <!-- 8. Settings Tab -->
+                <div id="tab-settings" class="tab-pane">
+                    <div class="content-header">
+                        <div>
+                            <h2 class="content-title font-serif">Account & Wardrobe Settings</h2>
+                            <p class="text-muted">Update your display information, location, bio, and avatar.</p>
+                        </div>
+                    </div>
+
+                    <form id="account-settings-form" style="max-width: 640px;">
+                        <div class="form-group">
+                            <label class="form-label" for="settings-name">Full Name</label>
+                            <input type="text" id="settings-name" class="form-input" style="padding-left:1rem;" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="settings-phone">Phone Number</label>
+                                <input type="tel" id="settings-phone" class="form-input" style="padding-left:1rem;">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="settings-location">Location (City, State)</label>
+                                <input type="text" id="settings-location" class="form-input" style="padding-left:1rem;" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="settings-avatar">Profile Image URL</label>
+                            <input type="url" id="settings-avatar" class="form-input" style="padding-left:1rem;" placeholder="https://images.unsplash.com/...">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="settings-bio">Bio & Fashion Ethos</label>
+                            <textarea id="settings-bio" class="form-textarea" placeholder="Tell the community about your style preferences, thrifting passion, or slow fashion habits..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save Profile Changes</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Professional Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div>&copy; 2026 ReWear Platform. Circular Fashion.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

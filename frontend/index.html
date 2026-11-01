@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReWear — Sustainable Fashion & Circular Clothing Marketplace</title>
+    <meta name="description" content="Discover pre-loved fashion, exchange your wardrobe, and give your clothes a second life with ReWear.">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main & Responsive Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- Site Header & Sticky Navbar -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="brand-logo">
+                <i class="fas fa-leaf"></i> Re<span>Wear</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="sell.html" class="nav-link">Sell</a>
+                <a href="exchange.html" class="nav-link">Exchange</a>
+                <a href="donate.html" class="nav-link">Donate</a>
+                <a href="#about" class="nav-link">About</a>
+            </nav>
+
+            <!-- Header Action Controls -->
+            <div class="header-actions">
+                <!-- Guest Area -->
+                <div id="nav-auth-guest" class="auth-guest">
+                    <a href="login.html" class="btn btn-outline btn-sm">Log In</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+                </div>
+
+                <!-- Logged In User Area -->
+                <div id="nav-auth-user" class="auth-logged-in">
+                    <a href="dashboard.html?tab=notifications" class="notification-bell-btn" title="Notifications">
+                        <i class="far fa-bell"></i>
+                        <span id="nav-notif-badge" class="notification-badge" style="display:none;">0</span>
+                    </a>
+
+                    <button id="user-menu-btn" class="user-avatar-btn">
+                        <img id="nav-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Avatar">
+                        <span id="nav-user-name">Account</span>
+                        <i class="fas fa-chevron-down" style="font-size:0.75rem; color:#666;"></i>
+                    </button>
+
+                    <!-- User Dropdown Menu -->
+                    <div id="user-dropdown" class="user-dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item">
+                            <i class="fas fa-th-large"></i> Dashboard
+                        </a>
+                        <a href="dashboard.html?tab=listings" class="dropdown-item">
+                            <i class="fas fa-tshirt"></i> My Listings
+                        </a>
+                        <a href="dashboard.html?tab=orders" class="dropdown-item">
+                            <i class="fas fa-box"></i> My Orders
+                        </a>
+                        <a href="dashboard.html?tab=wishlist" class="dropdown-item">
+                            <i class="far fa-heart"></i> Saved Items
+                        </a>
+                        <a href="admin.html" id="nav-admin-link" class="dropdown-item" style="display:none; color:#92400e; font-weight:600;">
+                            <i class="fas fa-shield-alt" style="color:#d97706;"></i> Admin Portal
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="nav-logout-btn" class="dropdown-item" style="color:#b91c1c;">
+                            <i class="fas fa-sign-out-alt" style="color:#b91c1c;"></i> Log Out
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" style="background: linear-gradient(135deg, rgba(35, 75, 58, 0.94) 0%, rgba(23, 51, 39, 0.97) 100%), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&q=80') center/cover; color: #ffffff; padding: 7rem 0 6rem; position: relative; overflow: hidden;">
+            <div class="container" style="position: relative; z-index: 2;">
+                <div style="max-width: 720px;">
+                    <span style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(163, 177, 138, 0.25); border: 1px solid rgba(163, 177, 138, 0.4); padding: 0.4rem 1rem; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #dce5cf; margin-bottom: 1.5rem;">
+                        <i class="fas fa-seedling"></i> Circular Clothing Movement
+                    </span>
+                    <h1 style="color: #ffffff; font-size: 3.5rem; margin-bottom: 1.25rem; line-height: 1.15;">
+                        Give Your Clothes a Second Life.
+                    </h1>
+                    <p style="color: #d1ded3; font-size: 1.2rem; line-height: 1.6; margin-bottom: 2.5rem; max-width: 620px;">
+                        Discover pre-loved fashion, exchange your wardrobe, donate to community causes, and make sustainability your everyday style.
+                    </p>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="explore.html" class="btn btn-primary btn-lg" style="background-color: var(--secondary-color); color: #1a382b;">
+                            Explore Collection <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="sell.html" class="btn btn-outline btn-lg" style="border-color: #ffffff; color: #ffffff;">
+                            Start Selling / Swapping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="section-py">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Curated Categories</span>
+                    <h2 class="section-title">Shop by Circular Wardrobe</h2>
+                    <p class="section-desc">Find sustainable garments handpicked for durability, timeless aesthetic, and circular beauty.</p>
+                </div>
+
+                <div class="category-grid">
+                    <a href="explore.html?category=women" class="category-card">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80" alt="Women">
+                        <div class="category-content">
+                            <h3 class="category-title font-serif">Women</h3>
+                            <span class="category-count">Handloom Sarees & Kurtis</span>
+                        </div>
+                    </a>
+                    <a href="explore.html?category=men" class="category-card">
+                        <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=600&q=80" alt="Men">
+                        <div class="category-content">
+                            <h3 class="category-title font-serif">Men</h3>
+                            <span class="category-count">Khadi Kurtas & Nehru Jackets</span>
+                        </div>
+                    </a>
+                    <a href="explore.html?category=kids" class="category-card">
+                        <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=600&q=80" alt="Kids">
+                        <div class="category-content">
+                            <h3 class="category-title font-serif">Kids</h3>
+                            <span class="category-count">Festive Sets & Organic Mulmul</span>
+                        </div>
+                    </a>
+                    <a href="explore.html?category=accessories" class="category-card">
+                        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80" alt="Accessories">
+                        <div class="category-content">
+                            <h3 class="category-title font-serif">Accessories</h3>
+                            <span class="category-count">Silk Dupattas & Leather Bags</span>
+                        </div>
+                    </a>
+                    <a href="explore.html?category=footwear" class="category-card">
+                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600&q=80" alt="Footwear">
+                        <div class="category-content">
+                            <h3 class="category-title font-serif">Footwear</h3>
+                            <span class="category-count">Kolhapuri Chappals & Juttis</span>
+                        </div>
+                    </a>
+                    <a href="explore.html?category=winter-wear" class="category-card">
+                        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=600&q=80" alt="Winter Wear">
+                        <div class="category-content">
+                            <h3 class="category-title font-serif">Winter Wear</h3>
+                            <span class="category-count">Pashmina Shawls & Tweed Overcoats</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Clothing Products -->
+        <section class="section-py" style="background-color: #f2efe9;">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <span class="section-subtitle">Freshly Curated</span>
+                        <h2 class="section-title" style="margin-bottom: 0;">Featured Pre-Loved Pieces</h2>
+                    </div>
+                    <a href="explore.html" class="btn btn-outline btn-sm">View All Listings <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div id="home-featured-grid" class="products-grid">
+                    <div class="loading-spinner" style="grid-column: 1 / -1;"><div class="spinner"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How ReWear Works -->
+        <section class="section-py">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Simple 4-Step Cycle</span>
+                    <h2 class="section-title">How ReWear Works</h2>
+                    <p class="section-desc">Keep valuable textiles circulating in use rather than deteriorating in landfills.</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem;">
+                    <div style="background: #ffffff; border-radius: var(--radius-md); padding: 2.2rem; border: 1px solid var(--border-color); text-align: center; position: relative;">
+                        <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(35, 75, 58, 0.1); color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1.25rem;">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--secondary-color);">STEP 01</span>
+                        <h3 style="font-size: 1.3rem; margin: 0.4rem 0 0.8rem;">Upload Unused Clothes</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Take photos of garments sitting unworn in your wardrobe and write a quick description.</p>
+                    </div>
+
+                    <div style="background: #ffffff; border-radius: var(--radius-md); padding: 2.2rem; border: 1px solid var(--border-color); text-align: center; position: relative;">
+                        <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(192, 125, 56, 0.12); color: #a45a16; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1.25rem;">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--secondary-color);">STEP 02</span>
+                        <h3 style="font-size: 1.3rem; margin: 0.4rem 0 0.8rem;">Choose Listing Type</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Decide whether to sell for cash, swap for another item, or donate to support individuals in need.</p>
+                    </div>
+
+                    <div style="background: #ffffff; border-radius: var(--radius-md); padding: 2.2rem; border: 1px solid var(--border-color); text-align: center; position: relative;">
+                        <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(163, 177, 138, 0.25); color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1.25rem;">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--secondary-color);">STEP 03</span>
+                        <h3 style="font-size: 1.3rem; margin: 0.4rem 0 0.8rem;">Connect & Confirm</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Review buyer orders or swap proposals with clear notifications and secure approvals.</p>
+                    </div>
+
+                    <div style="background: #ffffff; border-radius: var(--radius-md); padding: 2.2rem; border: 1px solid var(--border-color); text-align: center; position: relative;">
+                        <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(179, 57, 57, 0.1); color: var(--status-donate); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1.25rem;">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--secondary-color);">STEP 04</span>
+                        <h3 style="font-size: 1.3rem; margin: 0.4rem 0 0.8rem;">Give Clothes New Life</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Ship or meet locally. Track your personal environmental impact on our live dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sustainability Real Metrics Dashboard -->
+        <section class="section-py" style="background-color: var(--primary-dark); color: #ffffff;">
+            <div class="container">
+                <div class="section-header" style="color: #ffffff;">
+                    <span class="section-subtitle" style="color: var(--secondary-color);">Live Environmental Counter</span>
+                    <h2 class="section-title" style="color: #ffffff;">Our Collective Circular Impact</h2>
+                    <p class="section-desc" style="color: #c7d6c9;">Calculated dynamically from verified completed platform purchases, swaps, and donations.</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                    <div style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-md); padding: 2rem; text-align: center;">
+                        <div style="font-size: 2.8rem; font-weight: 700; font-family: var(--font-heading); color: var(--secondary-color);" id="home-stat-reused">0</div>
+                        <p style="color: #d1ded3; font-weight: 500; margin-top: 0.5rem;">Garments Kept in Circulation</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-md); padding: 2rem; text-align: center;">
+                        <div style="font-size: 2.8rem; font-weight: 700; font-family: var(--font-heading); color: #f2c94c;" id="home-stat-exchanges">0</div>
+                        <p style="color: #d1ded3; font-weight: 500; margin-top: 0.5rem;">Successful Clothing Swaps</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-md); padding: 2rem; text-align: center;">
+                        <div style="font-size: 2.8rem; font-weight: 700; font-family: var(--font-heading); color: #ff7675;" id="home-stat-donations">0</div>
+                        <p style="color: #d1ded3; font-weight: 500; margin-top: 0.5rem;">Charity & Community Donations</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-md); padding: 2rem; text-align: center;">
+                        <div style="font-size: 2.8rem; font-weight: 700; font-family: var(--font-heading); color: #74b9ff;" id="home-stat-diverted">0 kg</div>
+                        <p style="color: #d1ded3; font-weight: 500; margin-top: 0.5rem;">Textile Landfill Waste Diverted</p>
+                    </div>
+                </div>
+
+                <div style="background: rgba(0, 0, 0, 0.2); border-radius: var(--radius-md); padding: 1.25rem; font-size: 0.85rem; color: #a9bead; text-align: center; max-width: 800px; margin: 0 auto;">
+                    <i class="fas fa-info-circle"></i> <strong>Measurement Methodology:</strong> Based on the Ellen MacArthur Foundation textile standard of ~0.55 kg per garment. Conserves ~7,000L of water and ~14.5kg of CO2e emissions for every kilogram kept out of landfills.
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose ReWear Section -->
+        <section id="about" class="section-py">
+            <div class="container">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+                    <div>
+                        <span class="section-subtitle">Why ReWear</span>
+                        <h2 class="section-title">A Fashion Platform That Puts the Planet First</h2>
+                        <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+                            Traditional fast fashion generates over 92 million tons of textile waste each year. ReWear changes that narrative by providing an integrated ecosystem where unwanted garments can be traded, sold, or freely shared.
+                        </p>
+                        <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                            <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                                <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--secondary-light); color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Genuine Circular Economy</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.92rem;">Direct clothing exchange lets you refresh your wardrobe with zero monetary cost.</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                                <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--secondary-light); color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Community Giving & Social Impact</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.92rem;">Support families and students directly with warm coats, kids clothes, and daily essentials.</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                                <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--secondary-light); color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Verified & Safe Transactions</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.92rem;">Role-based security, listing moderation, and transparent member activity.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position: relative;">
+                        <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80" alt="Sustainable Wardrobe" style="border-radius: var(--radius-lg); box-shadow: var(--card-shadow-hover); width: 100%; height: 500px; object-fit: cover;">
+                        <div style="position: absolute; bottom: -20px; left: -20px; background: #ffffff; border-radius: var(--radius-md); padding: 1.25rem 1.75rem; box-shadow: var(--card-shadow-hover); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 1rem;">
+                            <i class="fas fa-heart" style="font-size: 2rem; color: var(--status-donate);"></i>
+                            <div>
+                                <div style="font-weight: 700; font-size: 1.2rem; color: var(--primary-dark);">100% Pre-Loved</div>
+                                <span style="font-size: 0.82rem; color: var(--text-muted);">Zero virgin textile production</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="section-py" style="background-color: #faf9f6;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Community Voices</span>
+                    <h2 class="section-title">What Our Circular Stylists Say</h2>
+                    <p class="section-desc">Join thousands of conscious consumers who swapped fast fashion for long-lasting clothes with character.</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div style="background: #ffffff; border-radius: var(--radius-md); padding: 2.2rem; border: 1px solid var(--border-color); box-shadow: var(--card-shadow);">
+                        <div style="color: #f59e0b; font-size: 0.9rem; margin-bottom: 1rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; color: #404040; margin-bottom: 1.5rem; line-height: 1.6;">
+                            "I swapped my Kantha embroidered jacket for an authentic handspun Khadi shirt within 2 days. The exchange workflow was so seamless, preserving Indian artisan craft without spending a single Rupee."
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 0.9rem;">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" alt="Aanya Patel" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+                            <div>
+                                <h4 style="font-size: 1rem; margin-bottom: 0.1rem;">Aanya Patel</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">Mumbai, Maharashtra</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #ffffff; border-radius: var(--radius-md); padding: 2.2rem; border: 1px solid var(--border-color); box-shadow: var(--card-shadow);">
+                        <div style="color: #f59e0b; font-size: 0.9rem; margin-bottom: 1rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; color: #404040; margin-bottom: 1.5rem; line-height: 1.6;">
+                            "The donation section allowed me to pass on my children's outgrown festive silk kurtas directly to a family in need. Seeing the fabric waste diverted in kilograms on my dashboard is so heartwarming."
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 0.9rem;">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="Priya Sundaram" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+                            <div>
+                                <h4 style="font-size: 1rem; margin-bottom: 0.1rem;">Priya Sundaram</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">Chennai, Tamil Nadu</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #ffffff; border-radius: var(--radius-md); padding: 2.2rem; border: 1px solid var(--border-color); box-shadow: var(--card-shadow);">
+                        <div style="color: #f59e0b; font-size: 0.9rem; margin-bottom: 1rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; color: #404040; margin-bottom: 1.5rem; line-height: 1.6;">
+                            "ReWear feels like a boutique Indian sustainable label rather than a messy thrift store. The quality of pre-loved Chanderi silk, Dabu prints, and Pashmina shawls makes circular fashion proud."
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 0.9rem;">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80" alt="Rohan Verma" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+                            <div>
+                                <h4 style="font-size: 1rem; margin-bottom: 0.1rem;">Rohan Verma</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">Bengaluru, Karnataka</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Subscription Section -->
+        <section style="background-color: var(--secondary-light); padding: 4.5rem 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+            <div class="container" style="text-align: center; max-width: 600px;">
+                <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--surface-color); color: var(--primary-color); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; font-size: 1.25rem;">
+                    <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <h2 style="font-size: 2.1rem; margin-bottom: 0.6rem;">Join the Circular Fashion Digest</h2>
+                <p style="color: var(--text-muted); font-size: 1rem; margin-bottom: 1.75rem;">
+                    Receive weekly sustainable style inspiration, slow fashion guides, and exclusive newly listed pre-loved gems.
+                </p>
+                <form id="newsletter-form" style="display: flex; gap: 0.5rem; max-width: 480px; margin: 0 auto; flex-wrap: wrap;">
+                    <input type="email" placeholder="Enter your email address" required style="flex: 1; min-width: 240px; padding: 0.8rem 1.2rem; border-radius: var(--radius-full); border: 1px solid var(--border-color); background: #ffffff;">
+                    <button type="submit" class="btn btn-primary" style="padding: 0.8rem 1.6rem;">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Professional Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="brand-logo" style="color: #ffffff;">
+                        <i class="fas fa-leaf" style="color: var(--secondary-color);"></i> Re<span>Wear</span>
+                    </a>
+                    <p>ReWear is on a mission to eliminate textile waste by connecting conscious fashion lovers to buy, swap, and donate pre-loved clothing.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Marketplace</h4>
+                    <ul class="footer-links">
+                        <li><a href="explore.html">Browse All</a></li>
+                        <li><a href="explore.html?type=sell">Buy Clothes</a></li>
+                        <li><a href="exchange.html">Clothing Swaps</a></li>
+                        <li><a href="donate.html">Donations Hub</a></li>
+                        <li><a href="sell.html">Start Listing</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Circularity</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About ReWear</a></li>
+                        <li><a href="donate.html">Social Impact</a></li>
+                        <li><a href="dashboard.html">Impact Dashboard</a></li>
+                        <li><a href="#">Textile Recycling</a></li>
+                        <li><a href="#">Carbon Reduction</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Support & Trust</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center & FAQs</a></li>
+                        <li><a href="#">Community Guidelines</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="admin.html">Moderation Portal</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>&copy; 2026 ReWear Platform. All rights reserved. Give Your Clothes a Second Life.</div>
+                <div>Designed with minimal carbon footprint & zero textile waste.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Load Live Sustainability Metrics & Featured Clothing on Home Page
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Metrics
+            try {
+                const res = await api.get('/sustainability/stats');
+                if (res.success && res.metrics) {
+                    const m = res.metrics;
+                    document.getElementById('home-stat-reused').textContent = m.totalItemsReused || 0;
+                    document.getElementById('home-stat-exchanges').textContent = m.successfulExchanges || 0;
+                    document.getElementById('home-stat-donations').textContent = m.totalDonations || 0;
+                    document.getElementById('home-stat-diverted').textContent = `${m.divertedWeightKg || 0} kg`;
+                }
+            } catch (e) {}
+
+            // Featured Products
+            try {
+                const itemsRes = await api.get('/items', { limit: 8, sort: 'popularity' });
+                const grid = document.getElementById('home-featured-grid');
+                if (grid && itemsRes.items) {
+                    grid.innerHTML = itemsRes.items.map(item => `
+                        <article class="product-card">
+                            <div class="card-img-wrapper">
+                                <img src="${item.primary_image}" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=800&q=80'">
+                                <div class="card-badges">
+                                    <span class="badge badge-${item.listing_type}">${item.listing_type.toUpperCase()}</span>
+                                    <span class="badge badge-condition">${item.condition_grade.replace('_', ' ')}</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-meta">
+                                    <span class="card-brand">${item.brand}</span>
+                                    <span class="card-size">Size: ${item.size}</span>
+                                </div>
+                                <h4 class="card-title"><a href="product.html?id=${item.id}">${item.title}</a></h4>
+                                <div class="card-location"><i class="fas fa-map-marker-alt"></i> ${item.location}</div>
+                                <div class="card-footer">
+                                    <span class="card-price">${item.listing_type === 'sell' ? formatCurrency(item.price) : item.listing_type.toUpperCase()}</span>
+                                    <a href="product.html?id=${item.id}" class="btn btn-outline btn-sm">Details</a>
+                                </div>
+                            </div>
+                        </article>
+                    `).join('');
+                }
+            } catch (e) {}
+        });
+    </script>
+</body>
+</html>

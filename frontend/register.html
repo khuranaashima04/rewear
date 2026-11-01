@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Account — ReWear Sustainable Fashion</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- Minimal Header -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="brand-logo">
+                <i class="fas fa-leaf"></i> Re<span>Wear</span>
+            </a>
+            <div style="font-size: 0.92rem;">
+                Already have an account? <a href="login.html" style="color: var(--primary-color); font-weight: 600;">Sign In</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="auth-wrapper">
+        <div class="auth-container">
+            <!-- Side Banner -->
+            <div class="auth-sidebar">
+                <div class="auth-sidebar-header">
+                    <span class="badge" style="background: rgba(255, 255, 255, 0.2); color: #ffffff;"><i class="fas fa-seedling"></i> Join the Movement</span>
+                </div>
+                <div class="auth-sidebar-content">
+                    <h2>Rethink Fashion, Reduce Waste.</h2>
+                    <p>Every piece of clothing kept out of the incinerator conserves water, slashes carbon footprints, and honors the craft of textile artisans.</p>
+                    <div class="auth-feature-list">
+                        <div class="auth-feature-item">
+                            <i class="fas fa-check-circle"></i> List unused items in 2 minutes
+                        </div>
+                        <div class="auth-feature-item">
+                            <i class="fas fa-check-circle"></i> Direct contact with verified local swappers
+                        </div>
+                        <div class="auth-feature-item">
+                            <i class="fas fa-check-circle"></i> Monitor your personal environmental savings
+                        </div>
+                    </div>
+                </div>
+                <div class="auth-sidebar-footer">
+                    &copy; 2026 ReWear Circular Fashion
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="auth-form-section">
+                <h1 class="auth-title font-serif">Create Account</h1>
+                <p class="auth-subtitle">Join thousands of people swapping and reviving clothes.</p>
+
+                <form id="register-form">
+                    <div class="form-group">
+                        <label class="form-label" for="reg-name">Full Name *</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="reg-name" class="form-input" placeholder="e.g. Ananya Sen" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="reg-email">Email Address *</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="reg-email" class="form-input" placeholder="ananya@example.in" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="reg-phone">Phone Number</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-phone"></i>
+                                <input type="tel" id="reg-phone" class="form-input" placeholder="+91 98765 43210">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="reg-location">City & State / Region *</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" id="reg-location" class="form-input" placeholder="e.g. New Delhi, Delhi" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="reg-password">Password (min 6 chars) *</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="reg-password" class="form-input" placeholder="••••••••" minlength="6" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="reg-confirm-password">Confirm Password *</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="reg-confirm-password" class="form-input" placeholder="••••••••" minlength="6" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 0.5rem;">
+                        Create Account <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="auth-redirect-text">
+                    Already a member? <a href="login.html">Sign in here</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

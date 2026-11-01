@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Marketplace — ReWear Circular Clothing</title>
+    <meta name="description" content="Shop, swap, and discover pre-owned fashion garments across men, women, kids, and vintage categories.">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main & Responsive Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .explore-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2.5rem;
+            align-items: flex-start;
+            padding: 3rem 0;
+        }
+
+        .filter-sidebar {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 1.8rem;
+            box-shadow: var(--card-shadow);
+            position: sticky;
+            top: 100px;
+        }
+
+        .filter-section {
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .filter-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-filter-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .category-filter-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .category-filter-item:hover, .category-filter-item.active {
+            background-color: var(--secondary-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .cat-pill-count {
+            font-size: 0.75rem;
+            background: rgba(35, 75, 58, 0.1);
+            color: var(--primary-color);
+            padding: 2px 7px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+        }
+
+        .type-pills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .type-filter-pill {
+            padding: 0.4rem 0.85rem;
+            border-radius: var(--radius-full);
+            border: 1.5px solid var(--border-color);
+            background: var(--bg-color);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .type-filter-pill:hover {
+            border-color: var(--secondary-color);
+        }
+
+        .type-filter-pill.active {
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+        }
+
+        .marketplace-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.4rem;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-bar-wrapper {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 260px;
+            position: relative;
+        }
+
+        .search-bar-wrapper input {
+            width: 100%;
+            padding: 0.7rem 1rem 0.7rem 2.5rem;
+            border-radius: var(--radius-full);
+            border: 1.5px solid var(--border-color);
+            background: var(--bg-color);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .search-bar-wrapper input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: #ffffff;
+        }
+
+        .search-bar-wrapper i {
+            position: absolute;
+            left: 14px;
+            color: #9ca3af;
+        }
+
+        .pagination-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3.5rem;
+        }
+
+        .pagination-numbers {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .pagination-num-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .pagination-num-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .pagination-num-btn.active {
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+        }
+
+        @media (max-width: 900px) {
+            .explore-layout {
+                grid-template-columns: 1fr;
+            }
+            .filter-sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="brand-logo">
+                <i class="fas fa-leaf"></i> Re<span>Wear</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="explore.html" class="nav-link active">Explore</a>
+                <a href="sell.html" class="nav-link">Sell</a>
+                <a href="exchange.html" class="nav-link">Exchange</a>
+                <a href="donate.html" class="nav-link">Donate</a>
+                <a href="index.html#about" class="nav-link">About</a>
+            </nav>
+
+            <div class="header-actions">
+                <div id="nav-auth-guest" class="auth-guest">
+                    <a href="login.html" class="btn btn-outline btn-sm">Log In</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+                </div>
+
+                <div id="nav-auth-user" class="auth-logged-in">
+                    <a href="dashboard.html?tab=notifications" class="notification-bell-btn" title="Notifications">
+                        <i class="far fa-bell"></i>
+                        <span id="nav-notif-badge" class="notification-badge" style="display:none;">0</span>
+                    </a>
+
+                    <button id="user-menu-btn" class="user-avatar-btn">
+                        <img id="nav-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Avatar">
+                        <span id="nav-user-name">Account</span>
+                        <i class="fas fa-chevron-down" style="font-size:0.75rem; color:#666;"></i>
+                    </button>
+
+                    <div id="user-dropdown" class="user-dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item"><i class="fas fa-th-large"></i> Dashboard</a>
+                        <a href="dashboard.html?tab=listings" class="dropdown-item"><i class="fas fa-tshirt"></i> My Listings</a>
+                        <a href="dashboard.html?tab=orders" class="dropdown-item"><i class="fas fa-box"></i> My Orders</a>
+                        <a href="dashboard.html?tab=wishlist" class="dropdown-item"><i class="far fa-heart"></i> Saved Items</a>
+                        <a href="admin.html" id="nav-admin-link" class="dropdown-item" style="display:none; color:#92400e; font-weight:600;"><i class="fas fa-shield-alt"></i> Admin Portal</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="nav-logout-btn" class="dropdown-item" style="color:#b91c1c;"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                    </div>
+                </div>
+
+                <button id="mobile-nav-toggle" class="mobile-nav-toggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Explore Grid & Filter Sidebar Layout -->
+        <div class="explore-layout">
+
+            <!-- Filter Sidebar -->
+            <aside class="filter-sidebar">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3 style="font-size: 1.25rem;"><i class="fas fa-sliders-h"></i> Filters</h3>
+                    <button id="btn-reset-filters" style="font-size: 0.82rem; color: var(--secondary-color); font-weight: 700; text-decoration: underline;">Reset All</button>
+                </div>
+
+                <!-- Listing Type -->
+                <div class="filter-section">
+                    <div class="filter-title">Listing Mode</div>
+                    <div class="type-pills-container">
+                        <button class="type-filter-pill active" data-type="all">All Modes</button>
+                        <button class="type-filter-pill" data-type="sell"><i class="fas fa-shopping-bag"></i> Buy</button>
+                        <button class="type-filter-pill" data-type="exchange"><i class="fas fa-sync-alt"></i> Swap</button>
+                        <button class="type-filter-pill" data-type="donate"><i class="fas fa-heart"></i> Free</button>
+                    </div>
+                </div>
+
+                <!-- Categories -->
+                <div class="filter-section">
+                    <div class="filter-title">Wardrobe Categories</div>
+                    <ul id="category-filter-list" class="category-filter-list">
+                        <li class="category-filter-item active" data-slug="all">All Collections</li>
+                    </ul>
+                </div>
+
+                <!-- Gender -->
+                <div class="filter-section">
+                    <div class="filter-title">Gender / Fit</div>
+                    <select id="filter-gender" class="form-select" style="padding: 0.55rem 0.75rem; font-size: 0.9rem;">
+                        <option value="all">All Fits</option>
+                        <option value="women">Women</option>
+                        <option value="men">Men</option>
+                        <option value="kids">Kids</option>
+                        <option value="unisex">Unisex</option>
+                    </select>
+                </div>
+
+                <!-- Size -->
+                <div class="filter-section">
+                    <div class="filter-title">Size</div>
+                    <select id="filter-size" class="form-select" style="padding: 0.55rem 0.75rem; font-size: 0.9rem;">
+                        <option value="all">All Sizes</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                        <option value="Free Size">Free Size</option>
+                    </select>
+                </div>
+
+                <!-- Condition -->
+                <div class="filter-section">
+                    <div class="filter-title">Garment Condition</div>
+                    <select id="filter-condition" class="form-select" style="padding: 0.55rem 0.75rem; font-size: 0.9rem;">
+                        <option value="all">Any Condition</option>
+                        <option value="brand_new">Brand New (Tags on)</option>
+                        <option value="like_new">Like New (1-2 wears)</option>
+                        <option value="gently_used">Gently Used</option>
+                        <option value="well_worn">Pre-Loved Vintage</option>
+                    </select>
+                </div>
+
+                <!-- Price Range -->
+                <div class="filter-section">
+                    <div class="filter-title">Price Range (₹ INR)</div>
+                    <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.75rem;">
+                        <input type="number" id="filter-min-price" placeholder="Min ₹" class="form-input" style="padding: 0.5rem; padding-left: 0.5rem; font-size: 0.85rem;">
+                        <span>-</span>
+                        <input type="number" id="filter-max-price" placeholder="Max ₹" class="form-input" style="padding: 0.5rem; padding-left: 0.5rem; font-size: 0.85rem;">
+                    </div>
+                    <button id="btn-apply-price" class="btn btn-outline btn-sm" style="width: 100%;">Apply Price</button>
+                </div>
+
+                <!-- Location -->
+                <div class="filter-section">
+                    <div class="filter-title">Location / City</div>
+                    <input type="text" id="filter-location" placeholder="e.g. Mumbai, New Delhi, Bengaluru..." class="form-input" style="padding: 0.55rem 0.75rem; font-size: 0.9rem;">
+                </div>
+            </aside>
+
+            <!-- Main Marketplace Content -->
+            <section class="marketplace-main">
+                <!-- Topbar Search & Sort -->
+                <div class="marketplace-topbar">
+                    <div class="search-bar-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="marketplace-search" placeholder="Search by clothing title, craft (e.g. Khadi, Chanderi, Fabindia)...">
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 0.8rem;">
+                        <span id="results-count" style="font-size: 0.88rem; color: var(--text-muted); white-space: nowrap;">Loading items...</span>
+                        <select id="sort-select" class="form-select" style="padding: 0.55rem 0.85rem; font-size: 0.9rem; width: auto;">
+                            <option value="latest">Sort: Latest Additions</option>
+                            <option value="price_asc">Price: Low to High</option>
+                            <option value="price_desc">Price: High to Low</option>
+                            <option value="popularity">Most Popular</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Dynamic Products Grid -->
+                <div id="products-grid" class="products-grid">
+                    <div class="loading-spinner" style="grid-column: 1 / -1;"><div class="spinner"></div></div>
+                </div>
+
+                <!-- Dynamic Pagination -->
+                <div id="pagination-container" class="pagination-container"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Professional Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="brand-logo" style="color: #ffffff;">
+                        <i class="fas fa-leaf" style="color: var(--secondary-color);"></i> Re<span>Wear</span>
+                    </a>
+                    <p>Give your clothes a second life. A sustainable circular marketplace for mindful wardrobes.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Marketplace</h4>
+                    <ul class="footer-links">
+                        <li><a href="explore.html">Browse Everything</a></li>
+                        <li><a href="exchange.html">Clothing Swaps</a></li>
+                        <li><a href="donate.html">Free Donations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Actions</h4>
+                    <ul class="footer-links">
+                        <li><a href="sell.html">List Clothes</a></li>
+                        <li><a href="dashboard.html">My Wardrobe</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Account</h4>
+                    <ul class="footer-links">
+                        <li><a href="login.html">Sign In</a></li>
+                        <li><a href="register.html">Create Account</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2026 ReWear Platform. Circular Fashion.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/explore.js"></script>
+</body>
+</html>
